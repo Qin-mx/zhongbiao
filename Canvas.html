@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas</title>
+</head>
+<style>
+	#canvas{
+		border:1px solid black;
+		position:absolute;
+		left:0;
+		right:0;
+		top:0;
+		bottom:0;
+		margin:auto;
+	}
+</style>
+<body>
+	<!-- 画布的大小只能通过属性设置，不要用css -->
+	<!-- getContext() 方法来访问绘画上下文 -->
+	<canvas id="canvas" width="600" height="600"></canvas>
+	<img src="0.jpg" alt="" style="display:none">
+	<script>
+	// window.onload=function(){
+	// 	var canvas = document.getElementById('canvas');
+	// 	var ctx = canvas.getContext('2d');
+	// 	var img=document.querySelector('img');
+	// var xxx = ctx.createPattern(img,'repeat');
+	// ctx.fillStyle = xxx;
+	// ctx.arc(300,300,100,(Math.PI/180)*360,0);
+	// ctx.fill();
+
+	// var image = new Image();      //加载图片
+	// img.onload=function(){
+	// 	ctx.drawImage(this,0,0)
+	// }
+	// img.src = '0.jpg';
+
+	// }
+		var canvas = document.getElementById('canvas');
+		var ctx = canvas.getContext('2d'); //画笔
+		// ctx.beginPath();
+		// ctx.moveTo(0,0);
+		// ctx.lineTo(600,600);
+		// ctx.moveTo(600,0);
+		// ctx.lineTo(0,600);
+		// ctx.stroke();
+		// ctx.closePath();
+		// ctx.fillStyle = "rgb(200,0,0)";
+  //       ctx.fillRect (10, 10, 55, 50);
+
+  //       ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+  //       ctx.fillRect (30, 30, 55, 50);
+  		// ctx.beginPath();
+  		// ctx.fillRect(225,30,150,50)
+  		// ctx.strokeRect(225,470,150,50)
+  		// ctx.closePath();
+  		// ctx.beginPath();
+  		// ctx.arc(150,300,50,(Math.PI/180)*360,0)
+  		// ctx.fill();
+  		// ctx.closePath();
+  		// ctx.beginPath();
+  		// ctx.arc(450,300,50,(Math.PI/180)*360,0);
+  		// ctx.stroke();
+  		// ctx.closePath();
+  		// ctx.beginPath();
+  		// ctx.moveTo(300,350);
+  		// ctx.lineTo(300,450);
+  		// ctx.moveTo(350,300);
+  		// ctx.arc(300,300,50,(Math.PI/180)*360,0);
+  		// ctx.moveTo(300,250);
+  		// ctx.lineTo(300,20);
+  		// ctx.stroke();
+  		// ctx.closePath();
+
+
+  		// ctx.beginPath();
+  		// ctx.moveTo(300,450);
+  		// ctx.lineTo(300,350);
+  		// ctx.quadraticCurveTo(250,300,300,250)
+  		// ctx.moveTo(300,350);
+  		// ctx.bezierCurveTo(300,350,350,300,300,250);
+  		// ctx.moveTo(300,250);
+  		// ctx.lineTo(300,20);
+  		// ctx.stroke();
+  		// ctx.closePath();
+
+  		// ctx.save();
+  		// ctx.translate(300,300);
+  		// ctx.beginPath();
+  		// for(var i=0;i<12;i++){
+  		// 	ctx.rotate((Math.PI/180)*30);
+  		// 	ctx.moveTo(0,0);
+  		// 	ctx.lineTo(0,-100);
+  		// }
+  		// ctx.stroke();
+
+  		// ctx.rotate((Math.PI/180)*30)//画布旋转了30deg
+  		// ctx.restore();
+  		var off = 0;
+  		function draw(){
+  			off+=1;
+  			ctx.clearRect(0,0,600,600);
+  			ctx.save();
+	  		ctx.translate(300,300);
+	  		ctx.lineWidth = 1;
+	  		ctx.setLineDash([30,15]);
+	  		ctx.lineDashOffset =off;
+	  		ctx.strokeRect(-150.5,-150.5,300,300);
+	  		ctx.restore();
+  		}
+  		// draw();
+  		setInterval(draw, 20);
+
+
+  		// var lingrad = ctx.createLinearGradient(300,200,300,400);
+  		// lingrad.addColorStop(0, 'red');
+  		// lingrad.addColorStop(0.5, 'yellow');  		
+  		// lingrad.addColorStop(1, 'blue');
+  		// ctx.fillStyle = lingrad;
+  		// ctx.arc(300,300,100,(Math.PI/180)*360,0);
+  		// ctx.fill();
+
+	</script>
+</body>
+</html>

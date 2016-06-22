@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>钟表</title>
+</head>
+<style>
+#canvas{
+	position:absolute;
+	left:0;
+	right:0;
+	bottom:0;
+	top:0;
+	margin:auto;
+	/*border:1px solid black;*/
+}
+#canvas1{
+	position:absolute;
+	left:0;
+	right:0;
+	bottom:0;
+	top:0;
+	margin:auto;
+}
+</style>
+<body>
+	<canvas id="canvas" width="600" height="600"></canvas>
+	<img src="1.jpg" alt="" style="display:none">
+	<canvas id="canvas1" width="400" height="400"></canvas>
+	<script>
+		window.onload=function(){
+			var canvas=document.querySelector('#canvas');
+			var ctx = canvas.getContext('2d');
+			var ctx1=document.querySelector('#canvas1').getContext('2d');
+			var img=document.querySelector('img');
+			//xuanzhuan
+				ctx.save();
+				var r = function(deg){
+				return (Math.PI/180)*deg
+				}
+				ctx.save();
+				ctx.translate(300,300);
+				ctx.beginPath();
+				ctx.arc(0,0,230,0,r(360));
+				var c=ctx.createRadialGradient(0,0,200,0,0,210);
+					c.addColorStop(0,"#000");
+					c.addColorStop(1,"#fff")
+					ctx.fillStyle=c;
+					ctx.strokeStyle = "red";
+				ctx.fill();
+				ctx.closePath();
+				ctx.restore();
+				// 画表盘
+				ctx.save();
+				ctx.translate(300,300);
+				ctx.beginPath();
+				ctx.arc(0,0,200,0,r(360));
+				ctx.stroke();
+				var bejing = ctx.createPattern(img,'no-repeat');
+				ctx.fillStyle = bejing;
+				ctx.fill();
+				ctx.closePath();
+				//画刻度
+				ctx.save();
+				ctx.beginPath();
+				for(var i=0;i<60;i++){
+					ctx.moveTo(0,-200);
+					if(i%5===0){
+						ctx.lineTo(0,-160);
+					}
+					ctx.lineWidth=4;
+					ctx.lineTo(0,-190);
+					ctx.rotate(r(6));
+				}
+			    ctx.strokeStyle="#fff";
+				ctx.stroke();
+				ctx.closePath();
+				ctx.restore();	
+			var watch=function(){  
+				var now = new Date();
+				var h = now.getMilliseconds();
+	    		var m = now.getSeconds();
+	   			var f = now.getMinutes();
+	   			var s = now.getHours();
+				var miao = 360*(h+1000*m)/(60*1000);
+	   			var fen = 360*(f*60*1000+h)/(60*60*1000);
+	   			var shi = 360*(s*60*60*1000+h)/(60*60*12*1000);
+				ctx1.clearRect(0,0,400,400);
+				//画秒针
+				ctx1.save();
+				ctx1.translate(200,200);
+			    ctx1.beginPath();
+			    ctx1.lineWidth=4;
+			    ctx1.strokeStyle="#fff";
+				ctx1.arc(0,0,8,0,r(360));
+			    ctx1.moveTo(5, 0)
+			    ctx1.rotate(r(miao));
+			    ctx1.moveTo(0, 5);
+			    ctx1.lineTo(0, 40);
+			    ctx1.moveTo(0, -5);
+			    ctx1.lineTo(0, -150);
+			    ctx1.stroke();
+			    ctx1.closePath();
+			    ctx1.restore();
+			    //画分针
+			    ctx1.save();
+			    ctx1.translate(200,200);
+			    ctx1.beginPath();
+			    ctx1.rotate(r(fen));
+			    ctx1.lineWidth=6;
+			    ctx1.strokeStyle="#fff";
+			    ctx1.moveTo(0,-5);
+			    ctx1.lineTo(0, -120);
+			    ctx1.moveTo(0,5 );
+			    ctx1.lineTo(0,30 );
+			    ctx1.stroke();
+			    ctx1.closePath();
+			    ctx1.restore();
+			    // 画时针
+		    	ctx1.save();
+		    	ctx1.translate(200,200);
+		    	ctx1.beginPath();
+			    ctx1.rotate(r(shi));
+			    ctx1.moveTo(0,-5);
+			    ctx1.lineTo(0, -80);
+			    ctx1.moveTo(0,5 );
+			    ctx1.lineTo(0,20);
+			    ctx1.lineWidth=8;
+			    ctx1.strokeStyle="#fff";
+			    ctx1.stroke();
+			    ctx1.closePath();
+			    ctx1.restore();
+			}
+				watch();
+				// 化数字
+				ctx.save();
+				ctx.font = "48px serif";
+				ctx.strokeStyle="#fff";
+				ctx.textAlign='center';
+				ctx.strokeText('2016',0,100);
+				ctx.restore();
+
+				ctx.save();
+				ctx.font = "32px serif";
+				ctx.strokeStyle="#fff";
+				ctx.textAlign='center';
+				ctx.strokeText('12',0,-130);
+				ctx.restore();
+
+				ctx.save();
+				ctx.font = "32px serif";
+				ctx.strokeStyle="#fff";
+				ctx.textBaseline='middle';
+				ctx.strokeText('3',140,0);
+				ctx.restore();
+
+				ctx.save();
+				ctx.font = "32px serif";
+				ctx.strokeStyle="#fff";
+				ctx.textAlign='center';
+				ctx.strokeText('6',0,150);
+				ctx.restore();
+
+				ctx.save();
+				ctx.font = "32px serif";
+				ctx.strokeStyle="#fff";
+				ctx.textBaseline='middle';
+				ctx.strokeText('9',-150,0);
+				ctx.restore();
+			  	ctx.restore();
+
+			
+   			setInterval(watch,12);
+
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>表</title>
+</head>
+<style>
+    #canvas {
+        border: 1px solid black;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
+</style>
+
+<body>
+    <!-- canvas 画布大小只能通过属性设置 不能用css -->
+    <canvas id="canvas" width="600" height="600"></canvas>
+</body>
+<script>
+    var canvas = document.querySelector('#canvas');
+    canvas.fillstyle = "red"
+    var ctx = canvas.getContext('2d');
+    var r = function(deg){
+    	return (Math.PI / 180) * deg
+    }
+    //画表盘
+    var watch=function(){
+    	var now = new Date();
+	    var m = now.getSeconds();
+	   	var h = now.getMilliseconds();
+	   	var f = now.getMinutes();
+	   	var s = now.getHours();
+	   	var miao = 360*(h+1000*m)/(60*1000);
+	   	console.log(miao)
+	   	var fen = 360*(h+f*60000)/(f*60*1000);
+	   	var shi = 360*(h+s*60*60*1000)/
+	   	(12*60*60*1000);
+    	ctx.clearRect(0,0,600,600);
+    	ctx.save();
+	    ctx.translate(300, 300);
+	    ctx.beginPath();
+	    ctx.arc(0, 0, 200, 0, r(360));
+	    ctx.stroke();
+	    ctx.closePath();
+    //画刻度
+	    ctx.beginPath();
+	    for (var i = 0; i < 60; i++) {
+	        ctx.moveTo(0, -200)
+	        if (i % 5 === 0) {
+	            ctx.lineTo(0, -150)
+	        }
+	        ctx.lineTo(0, -180);
+	        ctx.rotate(r(6));
+	    }	    
+	    ctx.arc(0, 0, 5, 0, r(360));
+	    ctx.stroke();
+	    ctx.closePath();
+	   
+
+    //秒针
+  //   	ctx.save();
+	 //    ctx.beginPath();
+	 //    ctx.moveTo(5, 0)
+
+	 //    ctx.rotate(r(miao));
+	 //    ctx.moveTo(0, 5);
+	 //    ctx.lineTo(0, 40);
+	 //    ctx.moveTo(0, -5);
+	 //    ctx.lineTo(0, -120);
+	 //    ctx.stroke();
+	 //    ctx.closePath();
+	 //    ctx.restore();
+
+	 // //分针
+  //   	ctx.save();
+
+	 //    ctx.beginPath();
+	 //    ctx.rotate(r(fen));
+	 //    ctx.moveTo(5, 0);
+	 //    ctx.moveTo(-5, 0);
+	 //    ctx.lineTo(-30, 0);
+	 //    ctx.moveTo(5, 0);
+	 //    ctx.lineTo(100, 0);
+	 //    ctx.stroke();
+	 //    ctx.closePath();
+	 //    ctx.restore();
+
+  //   // 时针
+  //   	ctx.save();
+
+	 //    ctx.beginPath();
+	 //    ctx.rotate(r(shi));
+	 //    ctx.moveTo(5, 0)
+	 //    ctx.arc(0, 0, 5, 0, r(360))
+	 //    ctx.moveTo(0, 5)
+	 //    ctx.lineTo(0, 20)
+	 //    ctx.moveTo(0, -5)
+	 //    ctx.lineTo(0, -80)
+	 //    ctx.stroke();
+	 //    ctx.closePath();
+	 //    ctx.restore();
+    }
+    watch();
+    setInterval(watch,12);
+</script>
+
+</html>
